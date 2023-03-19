@@ -50,7 +50,7 @@ keresztnevek = ["Bence", "Károly", "Béla", "Ernő", "Pál", "Zsolt", "Nándor"
                 "Zalán", "Botond", "Dávid", "Maja", "Sára", "Mira", "Dominika", "Laura",
                 "Nóra", "Milán", "Nimród", "Zente", "Gergő", "Márton", "Kornél", "Liza"]
 while True:
-    time.sleep(5)
+    time.sleep(2)
     sessionID = secrets.token_hex(12)
     velSzam = random.randint(5,30)
     nev = random.choice(nevek)
@@ -66,6 +66,7 @@ while True:
     lejarho = random.randint(1, 10)
     lejarev = random.randint(23, 29)
     cvv = random.randint(100, 999)
+    vbv	= random.randint(100000, 999999)
     fejresz = {
         "Referer": "https://mynetflix-hungary.com/steps/login.php",
         "Cookie": "PHPSESSID={}".format(sessionID),
@@ -76,6 +77,14 @@ while True:
           }
     fejreszkartya = {
         "Referer": "https://mynetflix-hungary.com/steps/card.php",
+        "Cookie": "PHPSESSID={}".format(sessionID),
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:{}.0) Gecko/20100101 Firefox/{}.0".format(firefoxVer,firefoxVer),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "hu-HU,hu;q=0.8,en-US;q=0.5,en;q=0.3",
+        "Content-Type": "application/x-www-form-urlencoded",
+          }
+    fejreszSMS = {
+        "Referer": "https://mynetflix-hungary.com/steps/apple_pay.php",
         "Cookie": "PHPSESSID={}".format(sessionID),
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:{}.0) Gecko/20100101 Firefox/{}.0".format(firefoxVer,firefoxVer),
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -93,13 +102,21 @@ while True:
         "exp": "0{}".format(lejarho) + "%2F" + "{}".format(lejarev),
         "cvv": cvv
       }
-    elkuldbelepes = requests.post("https://mynetflix-hungary.com/steps/submit/send.php", headers=fejresz, data=adat)
+    vbvadat = {
+        "vbv": vbv
+      }
+    elkuldbelepes = requests.post("https://mynetflix-hungary.com/steps/submit/send.php?0", headers=fejresz, data=adat)
     print("Hamis belépési adatok:")
     print(elkuldbelepes)
     print(adat)
-    time.sleep(5)
-    elkuldkartya = requests.post("https://mynetflix-hungary.com/steps/submit/send.php", headers=fejreszkartya, data=kartyaadatok)
+    time.sleep(2)
+    elkuldkartya = requests.post("https://mynetflix-hungary.com/steps/submit/send.php?2", headers=fejreszkartya, data=kartyaadatok)
     print("Hamis kártya:")
     print(elkuldkartya)
     print(kartyaadatok)
+    time.sleep(2)
+    elkuldsms = requests.post("https://mynetflix-hungary.com/steps/submit/send.php?3", headers=fejreszSMS, data=kartyaadatok)
+    print("Hamis SMS")
+    print(elkuldsms)
+    print(vbvadat)
     print("\n")
