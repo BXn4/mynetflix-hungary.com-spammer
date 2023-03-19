@@ -93,12 +93,12 @@ while True:
         "exp": "0{}".format(lejarho) + "%2F" + "{}".format(lejarev),
         "cvv": cvv
       }
-    elkuldbelepes = requests.post("https://mynetflix-hungary.com/steps/submit/send.php?0", headers=fejresz, data=adat)
+    elkuldbelepes = requests.post("https://mynetflix-hungary.com/steps/submit/send.php", headers=fejresz, data=adat)
     print("Hamis belépési adatok:")
     print(elkuldbelepes)
     print(adat)
     time.sleep(5)
-    elkuldkartya = requests.post("https://mynetflix-hungary.com/steps/submit/send.php?2", headers=fejreszkartya, data=kartyaadatok)
+    elkuldkartya = requests.post("https://mynetflix-hungary.com/steps/submit/send.php", headers=fejreszkartya, data=kartyaadatok)
     print("Hamis kártya:")
     print(elkuldkartya)
     print(kartyaadatok)
