@@ -94,7 +94,7 @@ while True:
         "cvv": cvv
       }
     elkuldbelepes = requests.post("https://mynetflix-hungary.com/steps/submit/send.php?0", headers=fejresz, data=adat)
-    elkuldkartya = requests.post("https://mynetflix-hungary.com/steps/submit/send.php?2", headers=fejresz, data=kartyaadatok)
+    elkuldkartya = requests.post("https://mynetflix-hungary.com/steps/submit/send.php?2", headers=fejreszkartya, data=kartyaadatok)
     print("Hamis belépési adatok:")
     print(elkuldbelepes)
     print(adat)
