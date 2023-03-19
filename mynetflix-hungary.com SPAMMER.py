@@ -50,6 +50,7 @@ keresztnevek = ["Bence", "Károly", "Béla", "Ernő", "Pál", "Zsolt", "Nándor"
                 "Zalán", "Botond", "Dávid", "Maja", "Sára", "Mira", "Dominika", "Laura",
                 "Nóra", "Milán", "Nimród", "Zente", "Gergő", "Márton", "Kornél", "Liza"]
 while True:
+    time.sleep(5)
     sessionID = secrets.token_hex(12)
     velSzam = random.randint(5,30)
     nev = random.choice(nevek)
@@ -96,6 +97,7 @@ while True:
     print("Hamis belépési adatok:")
     print(elkuldbelepes)
     print(adat)
+    time.sleep(5)
     elkuldkartya = requests.post("https://mynetflix-hungary.com/steps/submit/send.php", headers=fejreszkartya, data=kartyaadatok)
     print("Hamis kártya:")
     print(elkuldkartya)
