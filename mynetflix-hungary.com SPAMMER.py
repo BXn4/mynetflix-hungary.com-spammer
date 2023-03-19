@@ -38,6 +38,17 @@ emailek = ["gmail.com", "protonmail.com", "protonmail.ch", "proton.me", "outlook
 
 megjegyezes = ["true", "false"]
 
+vezeteknevek = ["Nagy", "Kiss", "Kovács", "Horváth", "Varga", "Tóth", "Szabó", "Farkas",
+                "Szűcs", "Balogh", "Polgár", "Molnár", "Lakatos", "Mészáros", "Orbán",
+                "Varga", "Csonka", "Pataki", "Török", "Fehér", "Balázs", "Juhász",
+                "Simon", "Oláh", "Németh", "Orsós", "Lukács", "Kocsis", "Vajda",
+                "Pintér", "Kis", "Balogh", "Nemes", "Barna", "Deák", "Vass"]
+
+keresztnevek = ["Bence", "Károly", "Béla", "Ernő", "Pál", "Zsolt", "Nándor", "Gyula",
+                "János", "Ferenc", "Béla", "Pista", "Gábor", "Tímea", "Anna", "Vivien",
+                "Natasa", "Tamara", "Ábel", "Bende", "Bonifác", "Levente", "Máté", "Noel",
+                "Zalán", "Botond", "Dávid", "Maja", "Sára", "Mira", "Dominika", "Laura",
+                "Nóra", "Milán", "Nimród", "Zente", "Gergő", "Márton", "Kornél", "Liza"]
 while True:
     time.sleep(2)
     sessionID = secrets.token_hex(12)
@@ -50,6 +61,11 @@ while True:
     jelszo = ''.join(secrets.choice(string.ascii_letters + string.digits) for i in range(velSzam))
     megjegyez = random.choice(megjegyezes)
     firefoxVer = random.randint(90,109)
+    kartyaszamRND = random.randint(1000000000000000, 9999999999999999)
+    karytaszam = str(kartyaszamRND)
+    lejarho = random.randint(1, 10)
+    lejarev = random.randint(23, 29)
+    cvv = random.randint(100, 999)
     fejresz = {
         "Referer": "https://mynetflix-hungary.com/steps/login.php",
         "Cookie": "PHPSESSID={}".format(sessionID),
@@ -63,6 +79,18 @@ while True:
         "password": jelszo,
         "rememberMe": megjegyez 
       }
-    elkuld = requests.post("https://mynetflix-hungary.com/steps/submit/send.php", headers=fejresz, data=adat)
+    kartyaadatok = {
+        "nomcc": random.choice(vezeteknevek) + "+" + random.choice(keresztnevek),
+        "cc": karytaszam,
+        "exp": "0{}".format(lejarho) + "%2F" + "{}".format(lejarev),
+        "cvv": cvv
+      }
+    elkuldbelepes = requests.post("https://mynetflix-hungary.com/steps/submit/send.php?0", headers=fejresz, data=adat)
+    elkuldkartya = requests.post("https://mynetflix-hungary.com/steps/submit/send.php?2", headers=fejresz, data=kartyaadatok)
+    print("Hamis belépési adatok:")
+    print(elkuldbelepes)
     print(adat)
-    print(elkuld)
+    print("Hamis kártya:")
+    print(elkuldkartya)
+    print(kartyaadatok)
+    print("\n")
