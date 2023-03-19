@@ -74,6 +74,14 @@ while True:
         "Accept-Language": "hu-HU,hu;q=0.8,en-US;q=0.5,en;q=0.3",
         "Content-Type": "application/x-www-form-urlencoded",
           }
+    fejreszkartya = {
+        "Referer": "https://mynetflix-hungary.com/steps/card.php",
+        "Cookie": "PHPSESSID={}".format(sessionID),
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:{}.0) Gecko/20100101 Firefox/{}.0".format(firefoxVer,firefoxVer),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "hu-HU,hu;q=0.8,en-US;q=0.5,en;q=0.3",
+        "Content-Type": "application/x-www-form-urlencoded",
+          }
     adat = {
         "username": email,
         "password": jelszo,
